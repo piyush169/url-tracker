@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Short URL Created!!</h1>
+    <div style="font-size: 25px;">
+        <a >Origonal URL:<a href="<%= url.origonalUrl %>"><%=url.origonalUrl%></a> </a>
+    </div>
+    <div style="font-size: 25px;">
+        <a>New URL: <a href="<%= url.origonalUrl %>">http://localhost:8001/url/<%=url.shortUrl%></a></a>
+    </div>
+    <button onclick="deletefunction('<%= url.shortUrl %>')">Delete URL</button>    
+    <script>
+        async function deletefunction(url) {
+        const response = await fetch(`/url/${url}`, {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            const data = await response.text(); 
+            document.body.innerHTML = data;
+        }
+    }
+    </script>
+</body>
+</html>

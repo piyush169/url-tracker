@@ -1,4 +1,4 @@
-const { findOneAndUpdate, findOne, findOneAndDelete } = require('../../hello/models/user');
+const { findOneAndUpdate, findOne, findOneAndDelete, find } = require('../../hello/models/user');
 const Url = require('../models/url');
 const generate = require('meaningful-string');
 
@@ -6,12 +6,14 @@ async function handleCreateShortUrl(req , res) {
     const body = req.body;  
     if(!body.url) return res.status(400).json({ error: 'url is required'})
     const shortId = generate.random({  "min":6, "max":6,});
-    await Url.create({
+    const info =  await Url.create({
         shortUrl: shortId,
         origonalUrl: body.url,
         urlAnalytics: [ {visits: 0 }],
     });
-    return res.json({message:`URL shortened successfully` , id:shortId})
+    return res.render('url-preview' , {
+        url: info
+    })
 }
 
 
@@ -37,7 +39,9 @@ async function handleRedirectUrl( req , res){
             new: true,
         })
     
-    res.redirect(`${response.origonalUrl}`);
+     res.redirect(`${response.origonalUrl}` , {
+        info: response,
+     });
 }
 
 async function handleDeleteUrl( req , res){
@@ -45,12 +49,21 @@ async function handleDeleteUrl( req , res){
     await Url.findOneAndDelete({
         shortUrl
     })
-    return res.json({ deletion: "successful"})
-    
+    return res.render('deletion' , {
+        id: shortUrl,
+    })
 } 
+
+async function handleHomePage(req , res){
+    const allInfo = await Url.find({});
+    return res.render('homepage' , {
+        info: allInfo,
+    })
+}
 
 module.exports = {
     handleCreateShortUrl,
     handleRedirectUrl,
-    handleDeleteUrl
+    handleDeleteUrl,
+    handleHomePage
 }
