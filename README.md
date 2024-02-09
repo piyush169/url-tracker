@@ -4,6 +4,7 @@ This is a simple URL shortener application built with Node.js and MongoDB along 
 
 ## Features
 
+- Uses Statefull authentication
 - Shorten URLs 
 - Track number of visits along with timings at the shortened URLs
 
