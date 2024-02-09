@@ -1,6 +1,6 @@
 # URL Shortener
 
-This is a simple URL shortener application built with Node.js and MongoDB along .
+This is a simple URL shortener application built with Node.js and MongoDB along with EJS.
 
 ## Features
 
@@ -10,7 +10,9 @@ This is a simple URL shortener application built with Node.js and MongoDB along 
 ## Installation
 
 1. Clone this repository:
-
+```
+git clone https://github.com/piyush169/url-tracker.git
+```
 2. Install dependencies:
 ```
 npm install
