@@ -31,10 +31,12 @@
             </thead>
             <tbody>
                 <% info.forEach((url , index) => { %>
-                    <td><%= index + 1 %></td>
-                    <td><%= url.shortUrl %></td>
-                    <td><%= url.origonalUrl %></td>
-                    <td><%= url.urlAnalytics[url.urlAnalytics.length - 1].visits %></td>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= url.shortUrl %></td>
+                        <td><%= url.origonalUrl %></td>
+                        <td><%= url.urlAnalytics[url.urlAnalytics.length - 1].visits %></td>
+                    </tr>
                 <% }) %> 
             </tbody>
         </table>

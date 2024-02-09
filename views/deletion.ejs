@@ -12,5 +12,17 @@
 </head>
 <body>
     <p>URL with ID:<%= id %> was deleted successfully!!!!</p>
+    <button onclick="redirecthomepage()">HomePage</button>
+    <script>
+        async function redirecthomepage(){
+            const response = await fetch('/url', {
+            method: 'GET'
+        });
+        if(response.ok){
+            const data = await response.text();
+            document.body.innerHTML = data;
+        }
+        }
+    </script>
 </body>
 </html>

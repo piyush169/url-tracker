@@ -1,4 +1,3 @@
-const { findOneAndUpdate, findOne, findOneAndDelete, find } = require('../../hello/models/user');
 const Url = require('../models/url');
 const generate = require('meaningful-string');
 
@@ -10,6 +9,7 @@ async function handleCreateShortUrl(req , res) {
         shortUrl: shortId,
         origonalUrl: body.url,
         urlAnalytics: [ {visits: 0 }],
+        createdBy: req.user._id,
     });
     return res.render('url-preview' , {
         url: info
@@ -39,9 +39,7 @@ async function handleRedirectUrl( req , res){
             new: true,
         })
     
-     res.redirect(`${response.origonalUrl}` , {
-        info: response,
-     });
+     res.redirect(`${response.origonalUrl}`);
 }
 
 async function handleDeleteUrl( req , res){
@@ -54,16 +52,11 @@ async function handleDeleteUrl( req , res){
     })
 } 
 
-async function handleHomePage(req , res){
-    const allInfo = await Url.find({});
-    return res.render('homepage' , {
-        info: allInfo,
-    })
-}
+
 
 module.exports = {
     handleCreateShortUrl,
     handleRedirectUrl,
     handleDeleteUrl,
-    handleHomePage
+    
 }

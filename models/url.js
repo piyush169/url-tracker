@@ -9,7 +9,11 @@ const UrlSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    urlAnalytics: [ {timestamps: { type: String } , visits: { type: Number }} ] 
+    urlAnalytics: [ {timestamps: { type: String } , visits: { type: Number }} ],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+    },
  },
  {timestamps: true}
 );
